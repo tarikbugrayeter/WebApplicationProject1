@@ -1,0 +1,66 @@
+﻿@model WebApplicationProject1.Models.SentEmail
+<body>
+    <form asp-controller="SentEmail" asp-action="Create" method="post">
+        <div class="form-group">
+            <label asp-for="VictimId"></label>
+            <input asp-for="VictimId" class="form-control" />
+            <span asp-validation-for="VictimId" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group">
+            <label asp-for="AttackId"></label>
+            <input asp-for="AttackId" class="form-control" />
+            <span asp-validation-for="AttackId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="SentDate"></label>
+            <input asp-for="SentDate" class="form-control" />
+            <span asp-validation-for="SentDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Içerik"></label>
+            <input asp-for="Içerik" class="form-control"/>
+            <span asp-validation-for="Içerik" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Konu"></label>
+            <input asp-for="Konu" class="form-control" />
+            <span asp-validation-for="Konu" class="text-danger"></span>
+        </div>
+        <input type="hidden" id="attackUrl" value="https://example.com/attack-url" />
+
+        <button type="submit" class="btn btn-primary">Gönder</button>
+        
+
+    </form>
+</body>
+<script>
+    document.getElementById("attackLink").addEventListener("click", function(event) {
+        event.preventDefault();
+
+        // Burada tıklama işlemini izlemek ve ClickedMail'e göndermek için gerekli verileri hazırlayabilirsiniz.
+        var emailId = @Model.EmailId; // EmailId değerini JavaScript koduna aktarıyoruz
+
+        // Tıklama izleme işlemleri
+        fetch('/Clicked/TrackClick?emailId=' + emailId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            console.log('Tıklama başarıyla kaydedildi.');
+            // Başarılı kayıttan sonra belirtilen URL'e yönlendirme işlemi otomatik olarak gerçekleşecek.
+        })
+        .catch(error => {
+            console.error('Tıklama kaydedilirken bir hata oluştu:', error);
+        });
+    });
+</script>
+    
+
+
